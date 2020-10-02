@@ -123,7 +123,8 @@ class TranspositionGA:
         self.crypt = crypt
         self.generationCount = 0
         self.key_length = key_length
-        self.population = Population(1000, crypt, key_length)
+        fprint("Initializing...Please wait")
+        self.population = Population(20, crypt, key_length)
         for i in range(self.population.pop_size):
             fprint(self.population.individuals[i].key)
         self.fittest = self.population.get_fittest_rand()

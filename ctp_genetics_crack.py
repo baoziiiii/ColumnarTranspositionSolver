@@ -35,7 +35,7 @@ if __name__ == "__main__":
 
     fprint("\n\nFormatted plain text:\n{}".format(plain))
 
-    K = 15
+    K = 10
     key = list(range(K))
     shuffle(key)
     fprint("\nGenerated a random key:{}".format(key))

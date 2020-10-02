@@ -32,11 +32,12 @@ To decipher it, the recipient has to work out the column lengths by dividing the
 # Implementation
 + Based on Genetic Algorithm.
 + Use weighted Suitability Assessment as fitness function.
++ Revive if too much convergence 
 + Optimized bigram/trigram.
 + B plus tree optimization.
 
 # Specificattion 
 Alphabet Set: \[A-Z_\], space is replaced by _ </br>
-Key Length(Column): 15 </br>
-Plaintext padded to 15*N with 'X'</br>
+Default Key Length(Column): 10 </br>
+Plaintext padded to 10*N with 'X'</br>
 
