@@ -105,7 +105,10 @@ class Population:
             self.individuals_dict[rk] += 1
             self.check_revive(rk, revive_threshold)
             return
-        del self.individuals_dict[tuple(self.individuals[replace_index].key)]
+        try:
+            del self.individuals_dict[tuple(self.individuals[replace_index].key)]
+        except:
+            fprint("KeyError:{}".format(tuple(self.individuals[replace_index].key)))
         del self.individuals[replace_index] 
         self.individuals.add(replace)
         self.individuals_dict[rk] += 1
@@ -129,7 +132,7 @@ class TranspositionGA:
         self.generationCount = 0
         self.key_length = key_length
         fprint("Initializing...Please wait")
-        self.population = Population(20, crypt, key_length)
+        self.population = Population(1000, crypt, key_length)
         for i in range(self.population.pop_size):
             fprint(self.population.individuals[i].key)
         self.fittest = self.population.get_fittest_rand()
