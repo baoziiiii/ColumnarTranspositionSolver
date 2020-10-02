@@ -67,11 +67,15 @@ class Population:
     def __init__(self, size, crypt, key_length):
         self.crypt = crypt
         self.key_length = key_length
-        self.individuals = sortedlist([Individual(crypt, key_length) for i in range(size)],key = lambda x: x.fitness)
+        self.pop_size = size
+        self.init()
+
+    
+    def init(self):
+        self.individuals = sortedlist([Individual(self.crypt, self.key_length) for i in range(self.pop_size)],key = lambda x: x.fitness)
         self.individuals_dict = defaultdict(int)
         for individual in self.individuals:
             self.individuals_dict[tuple(individual.key)] += 1
-        self.pop_size = size
         self.fittest = 0
 
     def get_fittest(self):
@@ -99,24 +103,25 @@ class Population:
         rk = tuple(replace.key)
         if rk in self.individuals_dict:
             self.individuals_dict[rk] += 1
-            self.revive(rk, revive_threshold)
+            self.check_revive(rk, revive_threshold)
             return
         del self.individuals_dict[tuple(self.individuals[replace_index].key)]
         del self.individuals[replace_index] 
         self.individuals.add(replace)
         self.individuals_dict[rk] += 1
     
-    def revive(self, key, revive_threshold):
+    def check_revive(self, key, revive_threshold):
         if self.individuals_dict[key] > revive_threshold:
-            for i, individual in enumerate(self.individuals):
-                if tuple(individual.key) == key:
-                    fprint("revive...")
-                    new_key = list(range(self.key_length))
-                    shuffle(new_key)
-                    nc = Individual(self.crypt, self.key_length ,key = new_key)
-                    nc.calcFitness()
-                    self.replace(i, nc, revive_threshold)
-                    return
+            fprint("revive...")
+            self.init()
+            # for i, individual in enumerate(self.individuals):
+            #     if tuple(individual.key) == key:
+            #         new_key = list(range(self.key_length))
+            #         shuffle(new_key)
+            #         nc = Individual(self.crypt, self.key_length ,key = new_key)
+            #         nc.calcFitness()
+            #         self.replace(i, nc, revive_threshold)
+            #         return
 
 class TranspositionGA:
     def __init__(self, crypt, key_length):
@@ -200,7 +205,7 @@ class TranspositionGA:
         while self.generationCount < generation_limit :
             self.generationCount += 1
             self.selection()
-            self.crossover(generation_limit//500)
+            self.crossover(generation_limit//1000)
             fittest = self.population.get_fittest()
             if fittest.fitness >= fitness_threshold:
                 if result and tuple(fittest.key) == tuple(result[-1][2]):
@@ -210,6 +215,7 @@ class TranspositionGA:
                 fprint("Solution Found:\n{}\nFitness:{} Key:{}".format(r[0],r[1],r[2]))
                 if input("\nIs this solution bingo? Enter b to break the program. Otherwise press Enter to continue searching...") == 'b':
                     return
+                fitness_threshold = fittest.fitness
 
             fprint("Generation: {} Fittest: {}".format(self.generationCount,self.population.fittest))
         

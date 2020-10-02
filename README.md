@@ -41,3 +41,9 @@ Alphabet Set: \[A-Z_\], space is replaced by _ </br>
 Default Key Length(Column): 10 </br>
 Plaintext padded to 10*N with 'X'</br>
 
+# Usage
+```
+ct_crack.py [-d] [file]
+```
+Option
++ -d : decrypt mode
