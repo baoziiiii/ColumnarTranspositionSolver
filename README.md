@@ -58,6 +58,5 @@ ct_crack.py -d sample_crypt.txt
 
 # Result 
 + Key Length: 10
-+ Attempts: 1000
 + Average Time to Find First Answer: ~9 seconds
 + First found correctness: ~90%  
