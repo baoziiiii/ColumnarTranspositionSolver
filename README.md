@@ -49,7 +49,7 @@ Option
 + -d : decrypt mode
 
 # Result 
-Key Length: 10
-Attempts: 1000
-Average Time to Find One Answer: 4.7 seconds
-First found correctness: ~90%  
++ Key Length: 10
++ Attempts: 1000
++ Average Time to Find One Answer: 4.7 seconds
++ First found correctness: ~90%  
