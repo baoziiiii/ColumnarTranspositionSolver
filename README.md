@@ -44,9 +44,17 @@ Plaintext padded to 10*N with 'X'</br>
 # Usage
 ```
 ct_crack.py [-d] [file]
-```
 Option
 + -d : decrypt mode
+```
+Encrypt plaintext:
+```
+ct_crack.py sample_plain.txt
+```
+Decrypt(crack) crypt
+```
+ct_crack.py -d sample_crypt.txt
+```
 
 # Result 
 + Key Length: 10
